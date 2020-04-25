@@ -1,5 +1,4 @@
 const inquirer = require("inquirer");
-const mysql = require("mysql");
 const conTable = require("console.table");
 const connection = require("./connection.js");
 
@@ -15,7 +14,7 @@ const startMenu = () => {
             name: "action",
             type: "rawlist",
             message: "What would you like to do?",
-            choices: ["Add a Department", "Add a Role", "Add an Employee", "View Department List", "View Role List", "View Employee List", "Update an Employee Role"]
+            choices: ["Add a Department", "Add a Role", "Add an Employee", "View Department List", "View Role List", "View Employee List", "Update an Employee Role", "EXIT"]
         }
     ).then(({ action }) => {
         switch (action) {
@@ -40,12 +39,12 @@ const startMenu = () => {
             case "Update an Employee Role":
                 updateEmployee();
                 break;
+            default:
+                connection.end();
 
         }
 
-
     })
-
 
 }
 
@@ -62,6 +61,12 @@ const addEmployee = () => {
 }
 
 const viewDepartment = () => {
+    connection.query("SELECT * FROM department", (err, res) => {
+        if (err) throw err;
+        for (i = 0; i < res.length; i++) {
+            console.log("Name: " + res[i].name)
+        }
+    })
 
 }
 
