@@ -117,9 +117,7 @@ const viewDepartment = () => {
     connection.query("SELECT * FROM department", (err, res) => {
         if (err) throw err;
 
-        for (i = 0; i < res.length; i++) {
-            console.table("Department: " + res[i].name)
-        }
+        console.table(res);
         startMenu();
     })
 
@@ -129,9 +127,7 @@ const viewRole = () => {
     connection.query("SELECT * FROM role", (err, res) => {
         if (err) throw err;
 
-        for (i = 0; i < res.length; i++) {
-            console.table("Roles: " + res[i].title)
-        }
+        console.table(res);
         startMenu();
     })
 
@@ -141,9 +137,7 @@ const viewEmployee = () => {
     connection.query("SELECT * FROM employee", (err, res) => {
         if (err) throw err;
 
-        for (i = 0; i < res.length; i++) {
-            console.table("Employee: " + res[i].first_name + res[i].last_name)
-        }
+        console.table(res);
         startMenu();
     })
 
