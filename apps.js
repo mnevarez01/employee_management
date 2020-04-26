@@ -49,6 +49,20 @@ const startMenu = () => {
 }
 
 const addDepartment = () => {
+    inquirer.prompt(
+        {
+            name: "name",
+            message: "What department would you like to add?"
+        }
+    ).then(({ name }) => {
+
+        connection.query("INSERT INTO department SET ?", { name: name }, (err, res) => {
+            if (err) throw err;
+            console.log(`Added ${res.affectedRows} successfully!`)
+            startMenu();
+        })
+
+    })
 
 }
 
