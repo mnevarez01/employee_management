@@ -67,6 +67,7 @@ const addDepartment = () => {
 }
 
 const addRole = () => {
+    //?? can I display the department list first and THEN prompt?
     inquirer.prompt([
         {
             name: "title",
@@ -78,27 +79,38 @@ const addRole = () => {
         },
         {
             // ? How can I turn the department to match a number inside of my id? would I have to do a join?
-            name: "department",
+            name: "department_id",
             message: "What department does this role belong to?",
         }
 
-    ]).then(({ title, salary, department }) => {
+    ]).then(({ title, salary, department_id }) => {
         connection.query("INSERT INTO role SET ?",
             {
                 title,
                 salary,
-                department
+                department_id
 
             }, (err, res) => {
                 if (err) throw err;
-                console.log()
+                console.log(`Added ${res} to Role List`)
 
+                // for (i = 0; i < res.length; i++) {
+
+                //     conTable(title, salary, department_id)
+                // }
+                startMenu();
             })
     })
 }
 
 const addEmployee = () => {
+    inquirer.prompt([
+        {
 
+        }
+    ]).then(({ }) => {
+
+    })
 }
 
 const viewDepartment = () => {
@@ -138,5 +150,11 @@ const viewEmployee = () => {
 }
 
 const updateEmployee = () => {
+    inquirer.prompt([
+        {
 
+        }
+    ]).then(({ }) => {
+
+    })
 }
