@@ -67,7 +67,33 @@ const addDepartment = () => {
 }
 
 const addRole = () => {
+    inquirer.prompt([
+        {
+            name: "title",
+            message: "What role would you like to add?",
+        },
+        {
+            name: "salary",
+            message: "What is the salary for this role?",
+        },
+        {
+            // ? How can I turn the department to match a number inside of my id? would I have to do a join?
+            name: "department",
+            message: "What department does this role belong to?",
+        }
 
+    ]).then(({ title, salary, department }) => {
+        connection.query("INSERT INTO role SET ?",
+            {
+                title,
+                salary,
+                department
+
+            }, (err, res) => {
+                if (err) throw err;
+
+            })
+    })
 }
 
 const addEmployee = () => {
