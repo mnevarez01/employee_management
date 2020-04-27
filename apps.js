@@ -67,49 +67,59 @@ const addDepartment = () => {
 }
 
 const addRole = () => {
-    //?? can I display the department list first and THEN prompt?
-    inquirer.prompt([
-        {
-            name: "title",
-            message: "What role would you like to add?",
-        },
-        {
-            name: "salary",
-            message: "What is the salary for this role?",
-        },
-        {
-            // ? How can I turn the department to match a number inside of my id? would I have to do a join?
-            name: "department_id",
-            message: "What department does this role belong to?",
-        }
 
-    ]).then(({ title, salary, department_id }) => {
-        connection.query("INSERT INTO role SET ?",
+    connection.query("SELECT name FROM department", (err, res) => {
+        if (err) throw err;
+        //?? can I display the department list first and THEN prompt?
+        inquirer.prompt([
             {
-                title,
-                salary,
-                department_id
+                name: "title",
+                message: "What role would you like to add?",
+            },
+            {
+                name: "salary",
+                message: "What is the salary for this role?",
+            },
+            {
+                // ? How can I turn the department to match a number inside of my id? would I have to do a join?
+                type: "rawlist",
+                name: "department_id",
+                message: "What department does this role belong to?",
+                choices: res
+            }
 
-            }, (err, res) => {
-                if (err) throw err;
-                console.log(`Added ${res} to Role List`)
+        ]).then(({ title, salary, department_id }) => {
+            connection.query("INSERT INTO role SET ?",
+                {
+                    title,
+                    salary,
+                    department_id
 
-                // for (i = 0; i < res.length; i++) {
+                }, (err, res) => {
+                    if (err) throw err;
+                    console.log(`Added ${res} to Role List`)
 
-                //     conTable(title, salary, department_id)
-                // }
-                startMenu();
-            })
+                    // for (i = 0; i < res.length; i++) {
+
+                    //     conTable(title, salary, department_id)
+                    // }
+                    startMenu();
+                })
+        })
+
     })
 }
 
 const addEmployee = () => {
-    inquirer.prompt([
-        {
+    connection.query("", (err, data) => {
+        if (err) throw err;
+        inquirer.prompt([
+            {
 
-        }
-    ]).then(({ }) => {
+            }
+        ]).then(({ }) => {
 
+        })
     })
 }
 
